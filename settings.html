@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Link Opener</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.7/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: rgb(17, 24, 39);
+        }
+
+        .gradient-button {
+            background-image: linear-gradient(to bottom right, rgb(190, 172, 255), rgb(84, 96, 255));
+        }
+
+        .gradient-button:hover {
+            background-image: linear-gradient(to bottom right, rgb(170, 152, 245), rgb(74, 86, 245));
+        }
+        
+        #navbar {
+          background-color: rgb(45, 55, 72);
+          height: 65px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 0 20px;
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          z-index: 9999;
+        }
+    
+        #navbar .list-icon,
+        #navbar .settings-icon,
+        #navbar .ai-text {
+          color: white;
+          text-decoration: none;
+          font-size: 24px;
+          font-weight: bold;
+          height: 50px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+    
+        #navbar .list-icon,
+        #navbar .settings-icon {
+          padding: 5px;
+          width: 50px;
+        }
+    
+        #navbar .ai-text {
+          margin: 0;
+          color: rgb(159, 148, 255);
+        }
+    
+        body {
+          margin-bottom: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mx-auto p-4 text-center">
+        <h1 class="text-white text-2xl mb-2 font-bold">Mindfuly Socials</h1>
+        <h2 class="text-gray-400 text-0.1g mb-4 font-semibold">Check out our socials</h2>
+        <ul class="list-none">
+            <li class="mb-2">
+                <button onclick="openLink('https://instagram.com/mindfulyofficial?igshid=MmJiY2I4NDBkZg==')" class="w-full gradient-button text-white font-bold py-2 px-4 rounded">Instagram</button>
+            </li>
+            <li class="mb-2">
+                <button onclick="openLink('https://www.tiktok.com/@mindfulyofficial')" class="w-full gradient-button text-white font-bold py-2 px-4 rounded">TikTok</button>
+            </li>
+            <li class="mb-2">
+                <button onclick="openLink('https://youtube.com/@Mindfuly?feature=share9')" class="w-full gradient-button text-white font-bold py-2 px-4 rounded">YouTube</button>
+            </li>
+        </ul>
+
+        <h3 class="text-white text-2xl mt-6 mb-4 font-bold">More coming soon</h3>
+    </div>
+    <script>
+        function openLink(url) {
+            window.open(url, '_blank');
+        }
+    </script>
+    <!-- Navigation bar -->
+    <div id="navbar">
+        <a href="index.html" class="list-icon">
+          <svg width="24" height="24" fill="currentColor" class="bi bi-list-ul" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm-3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+          </svg>
+        </a>
+        <h1 class="ai-text">
+          <a href="MindfulyAI.html">AI</a>
+        </h1>
+        <a href="" class="">
+          <svg width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M20.0001 6H28.0001V6.7335C28.6179 13.6002 30.662 14.8428 36.8981 11.9345L37.5885 11.5359L41.5885 18.4641L41.1985 18.6893C35.2937 22.7886 35.2333 25.1979 41.1318 29.2722L41.5885 29.5359L41.5689 29.5699L37.5885 36.4641L36.8271 36.0245C30.4716 33.1184 28.5347 34.548 28.0271 42.0249L28.0001 41.6958V42H20.0001V40.8335C19.3297 34.2078 17.1809 33.1931 10.8459 36.2134L10.4116 36.4641L6.41162 29.5359L7.44679 28.9383C12.6856 25.1559 12.6838 22.7927 7.34432 19.0026L6.41162 18.4641L10.4116 11.5359L10.6347 11.6647C17.1052 14.7619 19.3341 13.8313 20.0001 7.20194V6ZM29.0001 24C29.0001 26.7614 26.7615 29 24.0001 29C21.2387 29 19.0001 26.7614 19.0001 24C19.0001 21.2386 21.2387 19 24.0001 19C26.7615 19 29.0001 21.2386 29.0001 24ZM32.0001 24C32.0001 28.4183 28.4184 32 24.0001 32C19.5818 32 16.0001 28.4183 16.0001 24C16.0001 19.5817 19.5818 16 24.0001 16C28.4184 16 32.0001 19.5817 32.0001 24ZM34.0001 24C34.0001 29.5228 29.523 34 24.0001 34C18.4773 34 14.0001 29.5228 14.0001 24C14.0001 18.4772 18.4773 14 24.0001 14C29.523 14 34.0001 18.4772 34.0001 24Z" fill="#FFFFFF"/>
+          </svg>
+        </a>
+    </div>
+</body>
+</html>

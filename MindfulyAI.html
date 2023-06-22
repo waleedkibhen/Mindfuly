@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Goal Planner</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: rgb(17, 24, 39);
+    }
+    .gradient-bg {
+      background: linear-gradient(to bottom right, rgb(195, 177, 255), rgb(80, 92, 254));
+    }
+  </style>
+</head>
+<body class="text-white">
+  <div class="container mx-auto px-4 mt-10">
+    <h1 class="text-3xl font-bold mb-4 text-center mt-5">Mindfuly AI</h1>
+    <h2 class="text-lg text-gray-200 mb-10 text-center">Your personal AI plan maker</h2>
+    <form id="goal-form" class="mb-6">
+      <label for="self-improvement" class="block mb-2">Your self-improvement goal?</label>
+      <input type="text" id="self-improvement" class="block w-full bg-gray-700 text-white p-2 rounded mb-4" placeholder="Goals you want to achieve">
+  
+      <label for="challenges" class="block mb-2">Expected challenges?</label>
+      <input type="text" id="challenges" class="block w-full bg-gray-700 text-white p-2 rounded mb-4" placeholder="Challenges you expect to face">
+  
+      <label for="preferences" class="block mb-2">Plan preferences?</label>
+      <input type="text" id="preferences" class="block w-full bg-gray-700 text-white p-2 rounded mb-4" placeholder="What should the plan include">
+  
+      <button type="submit" class="gradient-bg text-white font-bold py-2 px-4 rounded mx-auto block">Get My Plan!</button>
+    </form>
+
+    <div id="output" class="gradient-bg p-4 rounded mb-6 hidden"></div>
+    <button id="copy-plan" class="gradient-bg text-white font-bold py-2 px-4 rounded hidden mb-6">Copy text</button>
+  </div>
+
+  <script>
+    const form = document.getElementById("goal-form");
+    const output = document.getElementById("output");
+    const copyButton = document.getElementById("copy-plan");
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      output.classList.add("hidden");
+      
+      const goal = document.getElementById("self-improvement").value;
+      const challenges = document.getElementById("challenges").value;
+      const preferences = document.getElementById("preferences").value;
+
+      const prompt = `considering the given information such as ${goal}, ${challenges}, ${preferences} I want you to generate a step by step detailed and extremely helpful and specific personal plan that can effectively impact the users life and help them achieve there desired goals.`;
+
+      console.log(prompt);
+      output.innerText = '';
+      const ws = new WebSocket(`wss://backend.buildpicoapps.com/ask_ai_streaming?app_id=course-professor&prompt=${encodeURIComponent(prompt)}`);
+
+      ws.addEventListener("message", (event) => {
+        console.log(event.data);
+        output.classList.remove("hidden");
+        output.innerText = `${output.innerText}${event.data}`;
+      });
+
+      ws.addEventListener("close", (event) => {
+        if (event.code != 1000) {
+          alert("Oops, we ran into an error. Refresh the page and try again.");
+        } else {
+          if (output.innerText !== "") {
+            copyButton.classList.remove("hidden");
+          }
+        }
+      });
+
+      ws.addEventListener("error", (error) => {
+        console.log('WebSocket error', error);
+        alert("Oops, we ran into an error. Refresh the page and try again.");
+      });
+
+    });
+
+    copyButton.addEventListener("click", () => {
+      const textarea = document.createElement("textarea");
+      textarea.value = output.innerText;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textarea);
+      alert("Plan copied to clipboard!");
+    });
+
+  </script>
+  <html>
+<head>
+  <title>Navigation Bar</title>
+  <style>
+    /* CSS for the navigation bar */
+    #navbar {
+      background-color: rgb(45, 55, 72);
+      height: 65px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 9999;
+    }
+
+    #navbar .list-icon,
+    #navbar .settings-icon,
+    #navbar .ai-text {
+      color: white;
+      text-decoration: none;
+      font-size: 24px;
+      font-weight: bold; /* Updated to bold */
+      height: 50px; /* Adjust the height */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #navbar .list-icon,
+    #navbar .settings-icon {
+      padding: 5px;
+      width: 40px; /* Updated to a smaller width */
+    }
+
+    #navbar .ai-text {
+      margin: 0;
+      color: rgb(159, 151, 255); /* Updated to rgb(30, 208, 129) */
+    }
+
+    body {
+      margin-bottom: 50px; /* Add margin-bottom to push the content above the fixed navbar */
+    }
+  </style>
+</head>
+<body>
+  <!-- Rest of your content -->
+  <div id="navbar">
+    <a href="index.html" class="list-icon">
+      <svg width="24" height="24" fill="currentColor" class="bi bi-list-ul" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm-3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+      </svg>
+    </a>
+    <h1 class="ai-text">
+      <a href="" class="ai-text">AI</a>
+    </h1>
+    <a href="settings.html" class="settings-icon">
+      <svg width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M20.0001 6H28.0001V6.7335C28.6179 13.6002 30.662 14.8428 36.8981 11.9345L37.5885 11.5359L41.5885 18.4641L41.1985 18.6893C35.2937 22.7886 35.2333 25.1979 41.1318 29.2722L41.5885 29.5359L41.5689 29.5699L37.5885 36.4641L36.8271 36.0245C30.4716 33.1184 28.5347 34.548 28.0271 42.0249L28.0001 41.6958V42H20.0001V40.8335C19.3297 34.2078 17.1809 33.1931 10.8459 36.2134L10.4116 36.4641L6.41162 29.5359L7.44679 28.9383C12.6856 25.1559 12.6838 22.7927 7.34432 19.0026L6.41162 18.4641L10.4116 11.5359L10.6347 11.6647C17.1052 14.7619 19.3341 13.8313 20.0001 7.20194V6ZM29.0001 24C29.0001 26.7614 26.7615 29 24.0001 29C21.2387 29 19.0001 26.7614 19.0001 24C19.0001 21.2386 21.2387 19 24.0001 19C26.7615 19 29.0001 21.2386 29.0001 24ZM32.0001 24C32.0001 28.4183 28.4184 32 24.0001 32C19.5818 32 16.0001 28.4183 16.0001 24C16.0001 19.5817 19.5818 16 24.0001 16C28.4184 16 32.0001 19.5817 32.0001 24ZM34.0001 24C34.0001 29.5228 29.523 34 24.0001 34C18.4773 34 14.0001 29.5228 14.0001 24C14.0001 18.4772 18.4773 14 24.0001 14C29.523 14 34.0001 18.4772 34.0001 24Z" fill="#FFFFFF"/>
+      </svg>
+    </a>
+  </div>
+</body>
+</html>
